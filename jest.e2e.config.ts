@@ -11,6 +11,7 @@ const config: Config = {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   testEnvironment: 'node',
+  forceExit: true,
 };
 
 export default config;
