@@ -5,7 +5,7 @@ import { PaymentStatus } from '../../domain/enums/payment-status.enum.js';
 import {
   ProcessPaymentOutput,
   ProcessPaymentUseCase,
-} from 'src/application/use-cases/process-payment.use_case.js';
+} from '../../application/use-cases/process-payment.use_case.js';
 
 const validDto = {
   amount: 150,

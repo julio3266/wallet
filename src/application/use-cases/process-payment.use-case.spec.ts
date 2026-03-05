@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { StepExecutorPort } from '../../domain/ports/step-executor.port.js';
 import type { StepConfig } from '../../domain/ports/step-executor.port.js';
-import { StepResult } from 'src/domain/value-objects/step-results.vo.js';
+import { StepResult } from '../../domain/value-objects/step-results.vo.js';
 import { ProcessPaymentUseCase } from './process-payment.use_case.js';
 
 class FakeStepExecutor extends StepExecutorPort {

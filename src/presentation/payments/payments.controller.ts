@@ -16,7 +16,7 @@ import { CreatePaymentDto } from './dto/create-payment.dto.js';
 import {
   ProcessPaymentOutput,
   ProcessPaymentUseCase,
-} from 'src/application/use-cases/process-payment.use_case.js';
+} from '../../application/use-cases/process-payment.use_case.js';
 
 @ApiTags('Payments')
 @Controller('v1/payments')
