@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PaymentsController } from './payments.controller.js';
+import { PaymentsController } from '@/presentation/payments/payments.controller.js';
 
-import { PaymentStatus } from '../../domain/enums/payment-status.enum.js';
+import { PaymentStatus } from '@/domain/enums/payment-status.enum.js';
 import {
   ProcessPaymentOutput,
   ProcessPaymentUseCase,
-} from '../../application/use-cases/process-payment.use_case.js';
+} from '@/application/use-cases/process-payment.use_case.js';
 
 const validDto = {
   amount: 150,

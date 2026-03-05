@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { requestContext, createRequestContext } from '../context/request-context.js';
+import { requestContext, createRequestContext } from '@/shared/context/request-context.js';
 
 const CORRELATION_ID_HEADER = 'x-correlation-id';
 

@@ -8,7 +8,8 @@ const config: Config = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^@/(.*)\\.js$': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   testEnvironment: 'node',
   forceExit: true,

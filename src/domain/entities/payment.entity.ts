@@ -1,8 +1,6 @@
-import { PaymentStatus } from '../enums/payment-status.enum.js';
-import { CardInfo } from '../value-objects/card-info.vo.js';
-import { StepResult } from '../value-objects/step-results.vo.js';
-
-const REJECTION_RATE = 0.1;
+import { PaymentStatus } from '@/domain/enums/payment-status.enum.js';
+import { CardInfo } from '@/domain/value-objects/card-info.vo.js';
+import { StepResult } from '@/domain/value-objects/step-results.vo.js';
 
 export class Payment {
   private readonly _steps: StepResult[] = [];
@@ -33,6 +31,11 @@ export class Payment {
   }
 
   resolveStatus(): PaymentStatus {
-    return Math.random() < REJECTION_RATE ? PaymentStatus.REJECTED : PaymentStatus.APPROVED;
+    if (this._steps.length === 0) {
+      return PaymentStatus.ERROR;
+    }
+
+    const hasFailed = this._steps.some((s) => s.status === 'failed');
+    return hasFailed ? PaymentStatus.REJECTED : PaymentStatus.APPROVED;
   }
 }

@@ -8,9 +8,8 @@ const config: Config = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
-    '^src/(.*)\\.js$': '<rootDir>/$1',
-    '^(\\.{1,2}/.*)\\.js$': '$1',
-    '^src/(.*)$': '<rootDir>/$1',
+    '^@/(.*)\\.js$': '<rootDir>/$1',
+    '^@/(.*)$': '<rootDir>/$1',
   },
   collectCoverageFrom: ['**/*.ts', '!**/node_modules/**', '!main.ts', '!**/*.module.ts'],
   coverageDirectory: '../coverage',

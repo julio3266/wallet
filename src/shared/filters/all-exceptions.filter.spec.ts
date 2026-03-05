@@ -1,6 +1,6 @@
 import { ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
-import * as requestContextModule from '../context/request-context.js';
-import { AllExceptionsFilter } from './all-exceptions.filter.js';
+import * as requestContextModule from '@/shared/context/request-context.js';
+import { AllExceptionsFilter } from '@/shared/filters/all-exceptions.filter.js';
 
 function createMockHost(responseMock: { status: jest.Mock; json: jest.Mock }): ArgumentsHost {
   return {
