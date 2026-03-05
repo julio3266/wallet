@@ -8,6 +8,7 @@ const config: Config = {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
+    '^src/(.*)\\.js$': '<rootDir>/$1',
     '^(\\.{1,2}/.*)\\.js$': '$1',
     '^src/(.*)$': '<rootDir>/$1',
   },
