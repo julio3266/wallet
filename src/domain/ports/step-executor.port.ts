@@ -1,4 +1,4 @@
-import { StepResults } from '../value-objects/step-results.vo';
+import { StepResult } from '../value-objects/step-results.vo';
 
 export interface StepConfig {
   name: string;
@@ -7,5 +7,5 @@ export interface StepConfig {
 }
 
 export abstract class StepExecutorPort {
-  abstract execute(config: StepConfig): Promise<StepResults>;
+  abstract execute(config: StepConfig): Promise<StepResult>;
 }

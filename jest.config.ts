@@ -9,6 +9,7 @@ const config: Config = {
   },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^src/(.*)$': '<rootDir>/$1',
   },
   collectCoverageFrom: ['**/*.ts', '!**/node_modules/**', '!main.ts', '!**/*.module.ts'],
   coverageDirectory: '../coverage',
