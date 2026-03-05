@@ -1,7 +1,7 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Logger } from '@nestjs/common';
 import { Observable, tap } from 'rxjs';
 import { Request } from 'express';
-import { getCorrelationId } from '../context/request-context.js';
+import { getCorrelationId } from '@/shared/context/request-context.js';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {

@@ -1,4 +1,4 @@
-import { CardInfo } from './card-info.vo.js';
+import { CardInfo } from '@/domain/value-objects/card-info.vo.js';
 
 describe('CardInfo Value Object', () => {
   it('should create with all card fields', () => {

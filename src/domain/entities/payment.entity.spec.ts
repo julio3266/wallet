@@ -1,7 +1,7 @@
-import { PaymentStatus } from '../enums/payment-status.enum';
-import { CardInfo } from '../value-objects/card-info.vo';
-import { StepResult } from '../value-objects/step-results.vo.js';
-import { Payment } from './payment.entity.js';
+import { PaymentStatus } from '@/domain/enums/payment-status.enum.js';
+import { CardInfo } from '@/domain/value-objects/card-info.vo.js';
+import { StepResult } from '@/domain/value-objects/step-results.vo.js';
+import { Payment } from '@/domain/entities/payment.entity.js';
 
 const mockCard = new CardInfo('4111111111111111', '123', '12/28', 'JULIO VALENTE');
 
@@ -53,10 +53,34 @@ describe('Payment Entity', () => {
     expect(payment.totalTimeMs).toBeGreaterThanOrEqual(0);
   });
 
-  it('should resolve status as approved or rejected', () => {
+  it('should resolve as approved when all steps succeed', () => {
     const payment = new Payment('txn_123', 100, mockCard);
-    const status = payment.resolveStatus();
+    payment.addStep(new StepResult('account_validation', 500));
+    payment.addStep(new StepResult('card_validation', 400));
 
-    expect([PaymentStatus.APPROVED, PaymentStatus.REJECTED]).toContain(status);
+    expect(payment.resolveStatus()).toBe(PaymentStatus.APPROVED);
+  });
+
+  it('should resolve as approved when steps are success or skipped', () => {
+    const payment = new Payment('txn_123', 100, mockCard);
+    payment.addStep(new StepResult('account_validation', 500));
+    payment.addStep(new StepResult('notification', 100, 'skipped'));
+
+    expect(payment.resolveStatus()).toBe(PaymentStatus.APPROVED);
+  });
+
+  it('should resolve as rejected when any step has failed', () => {
+    const payment = new Payment('txn_123', 100, mockCard);
+    payment.addStep(new StepResult('account_validation', 500));
+    payment.addStep(new StepResult('anti_fraud', 800, 'failed'));
+    payment.addStep(new StepResult('payment', 900));
+
+    expect(payment.resolveStatus()).toBe(PaymentStatus.REJECTED);
+  });
+
+  it('should resolve as error when there are no steps', () => {
+    const payment = new Payment('txn_123', 100, mockCard);
+
+    expect(payment.resolveStatus()).toBe(PaymentStatus.ERROR);
   });
 });

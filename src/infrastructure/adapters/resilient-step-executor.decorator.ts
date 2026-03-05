@@ -1,11 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { StepExecutorPort, StepConfig } from '../../domain/ports/step-executor.port.js';
-import { MockStepExecutorAdapter } from './mock-step-executor.adapter.js';
-import { StepResult } from '../../domain/value-objects/step-results.vo.js';
-
-const MAX_RETRIES = 2;
-const TIMEOUT_MULTIPLIER = 3;
-const BACKOFF_BASE_MS = 100;
+import { StepExecutorPort, StepConfig } from '@/domain/ports/step-executor.port.js';
+import { MockStepExecutorAdapter } from '@/infrastructure/adapters/mock-step-executor.adapter.js';
+import { StepResult } from '@/domain/value-objects/step-results.vo.js';
+import { RESILIENCE } from '@/infrastructure/config/steps.config.js';
 
 @Injectable()
 export class ResilientStepExecutorDecorator extends StepExecutorPort {
@@ -16,13 +13,13 @@ export class ResilientStepExecutorDecorator extends StepExecutorPort {
   }
 
   async execute(config: StepConfig): Promise<StepResult> {
-    const timeoutMs = config.maxMs * TIMEOUT_MULTIPLIER;
+    const timeoutMs = config.maxMs * RESILIENCE.TIMEOUT_MULTIPLIER;
     let lastError: Error | undefined;
 
-    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    for (let attempt = 0; attempt <= RESILIENCE.MAX_RETRIES; attempt++) {
       try {
         if (attempt > 0) {
-          const backoff = BACKOFF_BASE_MS * Math.pow(2, attempt - 1);
+          const backoff = RESILIENCE.BACKOFF_BASE_MS * Math.pow(2, attempt - 1);
           this.logger.warn(
             `Step "${config.name}" retry #${String(attempt)} after ${String(backoff)}ms`,
           );
@@ -39,7 +36,7 @@ export class ResilientStepExecutorDecorator extends StepExecutorPort {
     }
 
     throw new Error(
-      `Step "${config.name}" failed after ${String(MAX_RETRIES + 1)} attempts: ${lastError?.message ?? 'unknown'}`,
+      `Step "${config.name}" failed after ${String(RESILIENCE.MAX_RETRIES + 1)} attempts: ${lastError?.message ?? 'unknown'}`,
     );
   }
 

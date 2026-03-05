@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
-import { Payment } from '../../domain/entities/payment.entity.js';
-import { CardInfo } from '../../domain/value-objects/card-info.vo.js';
-import { PaymentStatus } from '../../domain/enums/payment-status.enum.js';
-import { StepExecutorPort, StepConfig } from '../../domain/ports/step-executor.port.js';
-import { PAYMENT_STEPS } from '../../infrastructure/config/steps.config.js';
-import { getCorrelationId } from '../../shared/context/request-context.js';
+import { Payment } from '@/domain/entities/payment.entity.js';
+import { CardInfo } from '@/domain/value-objects/card-info.vo.js';
+import { PaymentStatus } from '@/domain/enums/payment-status.enum.js';
+import { StepExecutorPort, StepConfig } from '@/domain/ports/step-executor.port.js';
+import { PAYMENT_STEPS } from '@/infrastructure/config/steps.config.js';
+import { getCorrelationId } from '@/shared/context/request-context.js';
 
 export interface ProcessPaymentInput {
   amount: number;

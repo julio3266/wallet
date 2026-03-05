@@ -7,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { getCorrelationId } from '../context/request-context.js';
+import { getCorrelationId } from '@/shared/context/request-context.js';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

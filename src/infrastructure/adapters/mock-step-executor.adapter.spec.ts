@@ -1,5 +1,5 @@
-import { MockStepExecutorAdapter } from './mock-step-executor.adapter.js';
-import type { StepConfig } from '../../domain/ports/step-executor.port.js';
+import { MockStepExecutorAdapter } from '@/infrastructure/adapters/mock-step-executor.adapter.js';
+import type { StepConfig } from '@/domain/ports/step-executor.port.js';
 
 describe('MockStepExecutorAdapter', () => {
   let adapter: MockStepExecutorAdapter;
@@ -13,7 +13,7 @@ describe('MockStepExecutorAdapter', () => {
     const result = await adapter.execute(config);
 
     expect(result.step).toBe('test_step');
-    expect(result.status).toBe('success');
+    expect(['success', 'failed']).toContain(result.status);
   });
 
   it('should take at least minMs to execute', async () => {
@@ -23,7 +23,7 @@ describe('MockStepExecutorAdapter', () => {
     await adapter.execute(config);
 
     const elapsed = Date.now() - start;
-    expect(elapsed).toBeGreaterThanOrEqual(45); // small tolerance
+    expect(elapsed).toBeGreaterThanOrEqual(45);
   });
 
   it('should record timeMs accurately', async () => {

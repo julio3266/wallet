@@ -11,12 +11,12 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 
-import { getCorrelationId } from '../../shared/context/request-context.js';
-import { CreatePaymentDto } from './dto/create-payment.dto.js';
+import { getCorrelationId } from '@/shared/context/request-context.js';
+import { CreatePaymentDto } from '@/presentation/payments/dto/create-payment.dto.js';
 import {
   ProcessPaymentOutput,
   ProcessPaymentUseCase,
-} from '../../application/use-cases/process-payment.use_case.js';
+} from '@/application/use-cases/process-payment.use_case.js';
 
 @ApiTags('Payments')
 @Controller('v1/payments')

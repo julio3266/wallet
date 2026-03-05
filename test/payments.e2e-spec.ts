@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { AppModule } from './../src/app.module';
-import { AllExceptionsFilter } from './../src/shared/filters/all-exceptions.filter';
+import { AppModule } from '@/app.module';
+import { AllExceptionsFilter } from '@/shared/filters/all-exceptions.filter';
 
 interface PaymentResponse {
   transactionId: string;
@@ -50,7 +50,7 @@ describe('POST /v1/payments (e2e)', () => {
     await app.close();
   });
 
-  it('should return 200 with 6 steps for a valid payment', async () => {
+  it('should return 200 with 6 steps and coherent status', async () => {
     const res = await request(app.getHttpServer())
       .post('/v1/payments')
       .send(validPayload)
@@ -58,7 +58,6 @@ describe('POST /v1/payments (e2e)', () => {
 
     const body = res.body as PaymentResponse;
     expect(body.transactionId).toMatch(/^txn_/);
-    expect(body.status).toMatch(/^(approved|rejected)$/);
     expect(body.totalTimeMs).toBeGreaterThanOrEqual(0);
     expect(body.correlationId).toBeDefined();
     expect(body.steps).toHaveLength(6);
@@ -72,6 +71,13 @@ describe('POST /v1/payments (e2e)', () => {
       'payment',
       'notification',
     ]);
+
+    const hasFailed = body.steps.some((s) => s.status === 'failed');
+    if (hasFailed) {
+      expect(body.status).toBe('rejected');
+    } else {
+      expect(body.status).toBe('approved');
+    }
   }, 15000);
 
   it('should return 400 when amount is 0', async () => {
