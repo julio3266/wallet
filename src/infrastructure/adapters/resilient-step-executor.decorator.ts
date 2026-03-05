@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { StepExecutorPort, StepConfig } from '../../domain/ports/step-executor.port.js';
 import { MockStepExecutorAdapter } from './mock-step-executor.adapter.js';
-import { StepResult } from 'src/domain/value-objects/step-results.vo.js';
+import { StepResult } from '../../domain/value-objects/step-results.vo.js';
 
 const MAX_RETRIES = 2;
 const TIMEOUT_MULTIPLIER = 3;

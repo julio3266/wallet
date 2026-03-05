@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { StepConfig, StepExecutorPort } from 'src/domain/ports/step-executor.port';
-import { StepResult } from 'src/domain/value-objects/step-results.vo';
+import { StepConfig, StepExecutorPort } from '../../domain/ports/step-executor.port.js';
+import { StepResult } from '../../domain/value-objects/step-results.vo.js';
 
 @Injectable()
 export class MockStepExecutorAdapter extends StepExecutorPort {
