@@ -5,10 +5,16 @@ import { StepResult } from 'src/domain/value-objects/step-results.vo';
 @Injectable()
 export class MockStepExecutorAdapter extends StepExecutorPort {
   async execute(config: StepConfig): Promise<StepResult> {
+    const { maxMs, minMs, name } = config;
     const start = Date.now();
-    const delay = 1;
+    const delay = this.randonBetween(minMs, maxMs);
 
     await new Promise<void>((resolve) => setTimeout(resolve, delay));
-    return new StepResult(config.name, Date.now() - start);
+
+    return new StepResult(name, Date.now() - start);
+  }
+
+  private randonBetween(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min) + min);
   }
 }
