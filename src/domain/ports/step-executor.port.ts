@@ -1,4 +1,4 @@
-import { StepResults } from '../value-objects/step-results';
+import { StepResults } from '../value-objects/step-results.vo';
 
 export interface StepConfig {
   name: string;

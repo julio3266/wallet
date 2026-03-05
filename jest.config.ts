@@ -7,6 +7,9 @@ const config: Config = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   collectCoverageFrom: ['**/*.ts', '!**/node_modules/**', '!main.ts', '!**/*.module.ts'],
   coverageDirectory: '../coverage',
   coverageReporters: ['text', 'lcov', 'clover'],

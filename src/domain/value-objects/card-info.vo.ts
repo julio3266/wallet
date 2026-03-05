@@ -10,7 +10,7 @@ export class CardInfo {
     this.expirationDate = expirationDate;
     this.holderName = holderName;
   }
-  get MasketCardNumber(): string {
+  get maskedCardNumber(): string {
     return `**** **** **** ${this.cardNumber.slice(-4)}`;
   }
 }
