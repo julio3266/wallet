@@ -2,6 +2,12 @@
   "expo": {
     "name": "wallet-app",
     "slug": "wallet-app",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "android": {
+      "package": "com.anonymous.walletapp"
+    },
+    "ios": {
+      "bundleIdentifier": "com.anonymous.walletapp"
+    }
   }
 }

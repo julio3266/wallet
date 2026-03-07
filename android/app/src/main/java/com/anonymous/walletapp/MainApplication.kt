@@ -1,4 +1,4 @@
-package com.walletapp
+package com.anonymous.walletapp
 
 import android.app.Application
 import android.content.res.Configuration
