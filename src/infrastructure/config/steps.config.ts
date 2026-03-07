@@ -9,10 +9,10 @@ export const PAYMENT_STEPS: StepConfig[] = [
   { name: 'notification', minMs: 200, maxMs: 300 },
 ];
 
-export const STEP_FAILURE_RATE = 0.1;
+export const STEP_FAILURE_RATE = Number(process.env.STEP_FAILURE_RATE) || 0.1;
 
 export const RESILIENCE = {
-  MAX_RETRIES: 2,
-  TIMEOUT_MULTIPLIER: 3,
-  BACKOFF_BASE_MS: 100,
+  MAX_RETRIES: Number(process.env.RESILIENCE_MAX_RETRIES) || 2,
+  TIMEOUT_MULTIPLIER: Number(process.env.RESILIENCE_TIMEOUT_MULTIPLIER) || 3,
+  BACKOFF_BASE_MS: Number(process.env.RESILIENCE_BACKOFF_BASE_MS) || 100,
 } as const;
