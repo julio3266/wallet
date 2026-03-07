@@ -2,7 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { StepExecutorPort } from '@/domain/ports/step-executor.port.js';
 import type { StepConfig } from '@/domain/ports/step-executor.port.js';
 import { StepResult } from '@/domain/value-objects/step-results.vo.js';
-import { ProcessPaymentUseCase } from '@/application/use-cases/process-payment.use_case.js';
+import { ProcessPaymentUseCase } from '@/application/use-cases/process-payment.use-case.js';
+import { ProcessPaymentUseCaseImpl } from '@/application/use-cases/process-payment.use-case.impl.js';
 
 class FakeStepExecutor extends StepExecutorPort {
   execute(config: StepConfig): Promise<StepResult> {
@@ -24,7 +25,10 @@ describe('ProcessPaymentUseCase', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ProcessPaymentUseCase,
+        {
+          provide: ProcessPaymentUseCase,
+          useClass: ProcessPaymentUseCaseImpl,
+        },
         {
           provide: StepExecutorPort,
           useClass: FakeStepExecutor,

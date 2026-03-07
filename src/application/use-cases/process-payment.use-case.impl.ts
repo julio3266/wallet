@@ -2,32 +2,22 @@ import { Injectable, Logger } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { Payment } from '@/domain/entities/payment.entity.js';
 import { CardInfo } from '@/domain/value-objects/card-info.vo.js';
-import { PaymentStatus } from '@/domain/enums/payment-status.enum.js';
 import { StepExecutorPort, StepConfig } from '@/domain/ports/step-executor.port.js';
 import { PAYMENT_STEPS } from '@/infrastructure/config/steps.config.js';
 import { getCorrelationId } from '@/shared/context/request-context.js';
-
-export interface ProcessPaymentInput {
-  amount: number;
-  cardNumber: string;
-  cvv: string;
-  expirationDate: string;
-  holderName: string;
-}
-
-export interface ProcessPaymentOutput {
-  status: PaymentStatus;
-  transactionId: string;
-  totalTimeMs: number;
-  correlationId: string;
-  steps: { step: string; timeMs: number; status: string }[];
-}
+import {
+  ProcessPaymentUseCase,
+  ProcessPaymentInput,
+  ProcessPaymentOutput,
+} from '@/application/use-cases/process-payment.use-case.js';
 
 @Injectable()
-export class ProcessPaymentUseCase {
-  private readonly logger = new Logger(ProcessPaymentUseCase.name);
+export class ProcessPaymentUseCaseImpl extends ProcessPaymentUseCase {
+  private readonly logger = new Logger(ProcessPaymentUseCaseImpl.name);
 
-  constructor(private readonly stepExecutor: StepExecutorPort) {}
+  constructor(private readonly stepExecutor: StepExecutorPort) {
+    super();
+  }
 
   async execute(input: ProcessPaymentInput): Promise<ProcessPaymentOutput> {
     const transactionId = `txn_${randomUUID()}`;
