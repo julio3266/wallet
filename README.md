@@ -7,7 +7,7 @@ Monorepo com o aplicativo mobile (wallet-app) e o BFF (Backend for Frontend) par
 ```
 wallet/
 ├── wallet-app/    # App React Native (Expo) - frontend mobile
-├── wallet-bff/    # BFF NestJS - API de pagamentos
+├── wallet-bff/    # BFF NestJS - Bff de payments
 └── README.md      # Esta documentação
 ```
 
