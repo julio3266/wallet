@@ -182,8 +182,8 @@ Os testes E2E do app que cobrem o fluxo de pagamento **dependem do BFF rodando**
 | Objetivo            | Onde         | Comando                                          |
 | ------------------- | ------------ | ------------------------------------------------ |
 | Rodar a API (BFF)   | `wallet-bff` | `yarn start:dev`                                 |
-| Rodar o app iOS     | `wallet-app` | `npm run ios`                                    |
-| Rodar o app Android | `wallet-app` | `npm run android`                                |
+| Rodar o app iOS     | `wallet-app` | `yarn ios`                                       |
+| Rodar o app Android | `wallet-app` | `yarn android`                                   |
 | Documentação da API | Browser      | http://localhost:3000/api/docs (com BFF rodando) |
 
 Para mais detalhes de cada projeto, consulte:
