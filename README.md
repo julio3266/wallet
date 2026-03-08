@@ -1,4 +1,4 @@
-# Midway Wallet
+#  Wallet
 
 Monorepo com o aplicativo mobile (wallet-app) e o BFF (Backend for Frontend) para processamento de pagamentos com cartão de crédito.
 
